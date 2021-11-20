@@ -1,18 +1,23 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-<h1>These are the Notes:</h1>
-<ul>
-    {% for note in notes %}
-        <li class="note-li">{{ note.title }}</li>
-    {% endfor %}
-</ul>
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="my-5">These are the Notes:</h1>
+    <div class="row row-cols3 g2">
+        {% for note in notes %}
+            <div class="col">
+                <div class="p3 border">
+                    <a href="{% url 'notes.detail' pk=note.id %}" class="text-dark text-decoration-none">
+                        <h3>{{ note.title }}</h3>
+                    </a>
+                    {{ note.text|truncatechars:10 }}
 
-</body>
-</html>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {#    <ul>#}
+    {#        {% for note in notes %}#}
+    {#            <li class="note-li">{{ note.title }}</li>#}
+    {#        {% endfor %}#}
+    {#    </ul>#}
+
+{% endblock %}
